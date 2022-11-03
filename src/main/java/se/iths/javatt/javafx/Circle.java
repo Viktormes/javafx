@@ -1,9 +1,21 @@
 package se.iths.javatt.javafx;
 
-import javafx.scene.paint.Color;
+import javafx.scene.canvas.GraphicsContext;
+
 
 public class Circle extends Shape {
-    public Circle(int size, Color color, double x, double y) {
-        super(size, color, x, y);
+    double radius = getSize()/2;
+    public Circle(ShapeParameter parameter) {
+        super(parameter);
     }
+
+    @Override
+    public void draw(GraphicsContext context) {
+        context.setFill(getColor());
+        context.fillOval(getX()- radius,getY()- radius,getSize(),getSize());
+
+    }
+
+
+
 }

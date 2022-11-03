@@ -1,52 +1,35 @@
 package se.iths.javatt.javafx;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
-abstract class Shape {
-    int size;
-    Color color;
-    double x;
-    double y;
+public abstract class Shape {
+    private double size;
+    private Color color;
+    private final double x;
+    private final double y;
 
-    public Shape(int size, Color color, double x, double y) {
-        this.size = size;
-        this.color = color;
-        this.x = x;
-        this.y = y;
+    public Shape(ShapeParameter parameter) {
+        size = parameter.size();
+        color = parameter.color();
+        x = parameter.x();
+        y = parameter.y();
     }
 
-    public int getSize() {
+    public abstract void draw(GraphicsContext context);
+    public double getSize() {
         return size;
     }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public Color getColor() {
         return color;
     }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public double getX() {
         return x;
     }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
     @Override
@@ -66,7 +49,7 @@ abstract class Shape {
     public int hashCode() {
         int result;
         long temp;
-        result = size;
+        result = (int) size;
         result = 31 * result + (color != null ? color.hashCode() : 0);
         temp = Double.doubleToLongBits(x);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -74,4 +57,8 @@ abstract class Shape {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
+
 }
+
+
+

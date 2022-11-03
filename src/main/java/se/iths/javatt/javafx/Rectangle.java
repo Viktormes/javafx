@@ -1,9 +1,18 @@
 package se.iths.javatt.javafx;
 
-import javafx.scene.paint.Color;
+import javafx.scene.canvas.GraphicsContext;
+
 
 public class Rectangle extends Shape{
-    public Rectangle(int size, Color color, double x, double y) {
-        super(size, color, x, y);
+    public Rectangle(ShapeParameter parameter) {
+        super(parameter);
     }
+
+    @Override
+    public void draw(GraphicsContext context) {
+        context.setFill(getColor());
+        context.fillRect(getX(),getY(),getSize(),getSize());
+    }
+
+
 }

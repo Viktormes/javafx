@@ -1,84 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane prefHeight="348.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.iths.javatt.javafx.Controller">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Add">
-            <items>
-              <MenuItem fx:id="menuRectangle1" mnemonicParsing="false" onAction="#onRectangleClicked" text="Rectangle" />
-                <MenuItem fx:id="menuPolygon1" mnemonicParsing="false" onAction="#onPolygonClicked" text="Triangle" />
-                <MenuItem fx:id="menuCircle1" mnemonicParsing="false" onAction="#onColorPicked2" text="Circle" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu>
-            <items>
-              <MenuItem />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
    <bottom>
-      <HBox prefHeight="7.0" prefWidth="658.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="shapesButton1" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="25.0" prefWidth="112.0" text="RandomShapes">
-               <effect>
+       <HBox prefHeight="50.0" prefWidth="658.0" spacing="5.0" BorderPane.alignment="CENTER">
+           <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+           </padding>
+           <ColorPicker fx:id="colorPicker">
+              <cursor>
+                  <Cursor fx:constant="HAND" />
+              </cursor>
+              <effect>
                   <DropShadow />
-               </effect>
-            </Button>
-            <Circle fx:id="circle1" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-            <ColorPicker fx:id="colorChoice" onAction="#onColorPicked2" promptText="Colors">
+              </effect>
+           </ColorPicker>
+         <Label text="Size:" />
+           <Slider fx:id="sizeSlider" onMouseDragged="#sizeSlider">
+            <cursor>
+               <Cursor fx:constant="CLOSED_HAND" />
+            </cursor></Slider>
+         <CheckBox fx:id="paintBrush" mnemonicParsing="false" text="Paint Brush">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </CheckBox>
+       </HBox>
+   </bottom>
+   <right>
+       <VBox prefHeight="232.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+           <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+           </padding>
+         <children>
+            <Button fx:id="saveButton" mnemonicParsing="false" text="SAVE" />
+            <Button fx:id="undoButton" mnemonicParsing="false" text="UNDO" />
+            <Button fx:id="resetCanvasButton" mnemonicParsing="false" onAction="#resetCanvasNow" text="DELETE" />
+              <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="92.0" text="Select Mode">
+               <font>
+                  <Font size="10.0" />
+               </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </ColorPicker>
+            </CheckBox>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-   </bottom>
-   <right>
-      <VBox prefHeight="232.0" prefWidth="14.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-         <children>
-            <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="92.0" text="Select Mode" />
-            <Polygon fx:id="triangle1" fill="DODGERBLUE" stroke="BLACK" strokeType="INSIDE" visible="false">
-              <points>
-                <Double fx:value="-50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="0.0" />
-                <Double fx:value="-60.0" />
-              </points>
-            </Polygon>
-            <Rectangle fx:id="rectangle1" arcHeight="5.0" arcWidth="5.0" height="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="20.0" />
-            <Slider fx:id="slider1" onMouseDragged="#slideSlider" orientation="VERTICAL" />
-         </children>
-      </VBox>
+       </VBox>
    </right>
    <center>
-      <Canvas height="300.0" onMouseClicked="#onButtonClick" width="470.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="canvas" height="400.0" onMouseClicked="#canvasClicked" width="500.0" BorderPane.alignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor></Canvas>
    </center>
+   <top>
+      <ChoiceBox fx:id="choiceBox" prefWidth="150.0" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>
