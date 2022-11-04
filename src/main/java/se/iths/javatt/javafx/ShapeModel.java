@@ -45,8 +45,8 @@ public class ShapeModel {
         this.color.set(color);
     }
 
-    public Number getSize() {
-        return size.get();
+    public double getSize() {
+        return (double) size.get();
     }
 
     public ObjectProperty<Number> sizeProperty() {

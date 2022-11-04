@@ -18,6 +18,14 @@ public abstract class Shape {
         y = parameter.y();
     }
 
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public abstract void draw(GraphicsContext context);
     public double getSize() {
         return size;
@@ -58,6 +66,13 @@ public abstract class Shape {
         return result;
     }
 
+    abstract boolean checkInsideShape(double mouseX, double mouseY);
+
+    public void updateColorAndSize(Color color, double size){
+        setColor(color);
+        setSize(size);
+
+    }
 }
 
 

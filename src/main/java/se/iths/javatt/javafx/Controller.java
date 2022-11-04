@@ -14,12 +14,13 @@ import static javafx.collections.FXCollections.observableArrayList;
 
 public class Controller {
 
+
     ShapeFactory shapeFactory = new ShapeFactory();
     ShapeModel shapeModel = new ShapeModel();
 
     public static final int MAX_WIDTH = 2200;
     public static final int MAX_HEIGHT = 1100;
-
+    public CheckBox selectModeBox;
     public Slider sizeSlider;
     public Canvas canvas;
     public ColorPicker colorPicker;
@@ -29,12 +30,11 @@ public class Controller {
     public Button undoButton;
     public Button resetCanvasButton;
     private Stage stage;
-    public CheckBox paintBrush;
+    //public CheckBox paintBrush;
     ShapeParameter shapeParameter;
 
 
-
-    public void initialize(){
+    public void initialize() {
         context = canvas.getGraphicsContext2D();
 
         sizeSlider.valueProperty().bindBidirectional(shapeModel.sizeProperty());
@@ -45,17 +45,23 @@ public class Controller {
 
         prepareCanvas();
     }
-    public void canvasClicked(MouseEvent mouseEvent) {
-        if (paintBrush.isSelected())
-            paintBrush();
 
-        shapeParameter = new ShapeParameter(mouseEvent.getX(), mouseEvent.getY(), (Double) shapeModel.getSize(),shapeModel.getColor());
-        shapeModel.getShapeList().add(shapeFactory.getShape(shapeModel.getShapeType(),shapeParameter));
+    public void canvasClicked(MouseEvent mouseEvent) {
+        if (selectModeBox.isSelected()) {
+            shapeModel.getShapeList().stream()
+                    .filter(shape -> shape.checkInsideShape(mouseEvent.getX(), mouseEvent.getY()))
+                    .reduce((first, second) -> second)
+                    .ifPresent(shape -> shape.updateColorAndSize(shapeModel.getColor(),shapeModel.getSize()));
+        }
+        else {
+            shapeParameter = new ShapeParameter(mouseEvent.getX(), mouseEvent.getY(), shapeModel.getSize(), shapeModel.getColor());
+            shapeModel.getShapeList().add(shapeFactory.getShape(shapeModel.getShapeType(), shapeParameter));
+        }
+        prepareCanvas();
         shapeModel.getShapeList().forEach(shape -> shape.draw(context));
 
 
     }
-
 
 
     private void drawShapes(GraphicsContext context) {
@@ -63,10 +69,12 @@ public class Controller {
             Shape.draw(context);
         }
     }
+
     @FXML
     protected double sizeSlider() {
         return sizeSlider.getValue();
     }
+
     private void prepareCanvas() {
         context.setFill(Paint.valueOf("WHITE"));
         context.fillRect(0, 0, MAX_WIDTH, MAX_HEIGHT);
@@ -78,15 +86,10 @@ public class Controller {
         prepareCanvas();
 
     }
-
-    private void paintBrush() {
-        canvas.setOnMouseDragged(mouseEvent -> {
-            double x = mouseEvent.getX() - (double)shapeModel.getSize() / 2;
-            double y = mouseEvent.getY() - (double)shapeModel.getSize() / 2;
-            context.setFill(colorPicker.getValue());
-            context.fillOval(x, y, (double) shapeModel.getSize(),(double) shapeModel.getSize());
-        });
-    }
+//                double x = mouseEvent.getX() - (double) shapeModel.getSize() / 2;
+//                double y = mouseEvent.getY() - (double) shapeModel.getSize() / 2;
+//                context.setFill(colorPicker.getValue());
+//                context.fillOval(x, y, (double) shapeModel.getSize(), (double) shapeModel.getSize());
 }
 
 

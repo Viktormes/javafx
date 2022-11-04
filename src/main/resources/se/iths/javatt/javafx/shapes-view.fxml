@@ -23,15 +23,10 @@
               </effect>
            </ColorPicker>
          <Label text="Size:" />
-           <Slider fx:id="sizeSlider" onMouseDragged="#sizeSlider">
+           <Slider fx:id="sizeSlider" min="1.0" onMouseDragged="#sizeSlider">
             <cursor>
                <Cursor fx:constant="CLOSED_HAND" />
             </cursor></Slider>
-         <CheckBox fx:id="paintBrush" mnemonicParsing="false" text="Paint Brush">
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </CheckBox>
        </HBox>
    </bottom>
    <right>
@@ -43,7 +38,7 @@
             <Button fx:id="saveButton" mnemonicParsing="false" text="SAVE" />
             <Button fx:id="undoButton" mnemonicParsing="false" text="UNDO" />
             <Button fx:id="resetCanvasButton" mnemonicParsing="false" onAction="#resetCanvasNow" text="DELETE" />
-              <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="92.0" text="Select Mode">
+              <CheckBox fx:id="selectModeBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="92.0" text="Select Mode">
                <font>
                   <Font size="10.0" />
                </font>
