@@ -19,5 +19,12 @@ public class Circle extends Shape {
         double distance = Math.sqrt((distX * distX) + (distY * distY));
         return distance <= radius;
     }
-
+    @Override
+    public String drawToSVGAsString() {
+        String convertColor = "#" + getColor().toString().substring(2, 10);
+        return "<circle cx=\"" + getX() + "\" " +
+                "cy=\"" + getY() + "\" " +
+                "r=\"" + radius + "\" " +
+                "fill=\"" + convertColor + "\" />";
+    }
 }

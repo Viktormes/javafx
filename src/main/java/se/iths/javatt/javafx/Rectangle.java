@@ -19,6 +19,15 @@ public class Rectangle extends Shape {
                 mouseY >= getY() &&
                 mouseY <= getY() + getSize();
     }
+    @Override
+    public String drawToSVGAsString() {
+        String convertColor = getColor().toString().substring(2, 10);
+        return "<rect x=\"" + (getX()) + "\" " +
+                "y=\"" + (getY() + getSize()) + "\" " +
+                "width=\"" + getSize() * 1.75 + "\" " +
+                "height=\"" + getSize() + "\" " +
+                "fill=\"#" + convertColor + "\" />";
+    }
 }
 
 

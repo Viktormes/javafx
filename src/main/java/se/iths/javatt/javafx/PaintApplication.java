@@ -13,6 +13,8 @@ public class PaintApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PaintApplication.class.getResource("shapes-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        Controller controller = fxmlLoader.getController();
+        controller.setStage(stage);
         stage.setTitle("VIKTORS FORMER");
         stage.setScene(scene);
         stage.getIcons().add(new Image(PaintApplication.class.getResourceAsStream("GGG2.png")));

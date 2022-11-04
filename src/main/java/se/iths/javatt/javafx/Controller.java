@@ -29,7 +29,7 @@ public class Controller {
     public Button saveButton;
     public Button undoButton;
     public Button resetCanvasButton;
-    private Stage stage;
+    public Stage stage;
     //public CheckBox paintBrush;
     ShapeParameter shapeParameter;
 
@@ -47,27 +47,34 @@ public class Controller {
     }
 
     public void canvasClicked(MouseEvent mouseEvent) {
+        double mouseX = mouseEvent.getX();
+        double mouseY = mouseEvent.getY();
         if (selectModeBox.isSelected()) {
             shapeModel.getShapeList().stream()
-                    .filter(shape -> shape.checkInsideShape(mouseEvent.getX(), mouseEvent.getY()))
+                    .filter(shape -> shape.checkInsideShape(mouseX, mouseY))
                     .reduce((first, second) -> second)
-                    .ifPresent(shape -> shape.updateColorAndSize(shapeModel.getColor(),shapeModel.getSize()));
-        }
-        else {
-            shapeParameter = new ShapeParameter(mouseEvent.getX(), mouseEvent.getY(), shapeModel.getSize(), shapeModel.getColor());
+                    .ifPresent(shape -> shape.updateColorAndSize(shapeModel.getColor(), shapeModel.getSize()));
+        } else {
+            shapeParameter = new ShapeParameter(mouseX, mouseY, shapeModel.getSize(), shapeModel.getColor());
             shapeModel.getShapeList().add(shapeFactory.getShape(shapeModel.getShapeType(), shapeParameter));
         }
-        prepareCanvas();
-        shapeModel.getShapeList().forEach(shape -> shape.draw(context));
-
+        drawShapes();
+        shapeModel.addToUndoStack(shapeModel.getShapeList().get(shapeModel.getLastIndexOfShapeList()));
 
     }
 
+    public void save() {
+        new SVGWriter().saveToFile(shapeModel, stage);
+    }
 
-    private void drawShapes(GraphicsContext context) {
-        for (var Shape : shapeModel.getShapeList()) {
-            Shape.draw(context);
-        }
+    public void useUndoButton() {
+        shapeModel.undo();
+        drawShapes();
+    }
+
+    private void drawShapes() {
+        prepareCanvas();
+        shapeModel.getShapeList().forEach(shape -> shape.draw(context));
     }
 
     @FXML
@@ -85,6 +92,10 @@ public class Controller {
         shapeModel.clearShapeList();
         prepareCanvas();
 
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 //                double x = mouseEvent.getX() - (double) shapeModel.getSize() / 2;
 //                double y = mouseEvent.getY() - (double) shapeModel.getSize() / 2;

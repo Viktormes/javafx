@@ -35,8 +35,8 @@
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
            </padding>
          <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" text="SAVE" />
-            <Button fx:id="undoButton" mnemonicParsing="false" text="UNDO" />
+            <Button fx:id="saveButton" mnemonicParsing="false" text="SAVE" onAction="#save" />
+            <Button fx:id="undoButton" mnemonicParsing="false" text="UNDO" onAction="#useUndoButton" />
             <Button fx:id="resetCanvasButton" mnemonicParsing="false" onAction="#resetCanvasNow" text="DELETE" />
               <CheckBox fx:id="selectModeBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="92.0" text="Select Mode">
                <font>

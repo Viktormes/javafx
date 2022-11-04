@@ -68,6 +68,8 @@ public abstract class Shape {
 
     abstract boolean checkInsideShape(double mouseX, double mouseY);
 
+    abstract String drawToSVGAsString();
+
     public void updateColorAndSize(Color color, double size){
         setColor(color);
         setSize(size);

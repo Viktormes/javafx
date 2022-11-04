@@ -6,6 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import static javafx.collections.FXCollections.observableArrayList;
 
 
@@ -16,8 +19,11 @@ public class ShapeModel {
 
     private ObservableList<ShapeType> shapeTypeList;
     private final ObjectProperty<ShapeType> currentShapeType;
+    private Deque<Command> shapeUndoStack;
 
-    public ShapeModel(){
+
+    public ShapeModel() {
+        shapeUndoStack = new ArrayDeque<>();
         color = new SimpleObjectProperty<>(Color.BISQUE);
         size = new SimpleObjectProperty<>(50.0);
         shapeList = FXCollections.observableArrayList();
@@ -77,6 +83,27 @@ public class ShapeModel {
         this.shapeTypeList = shapeTypeList;
     }
 
+    public void addToUndoStack(Shape shape) {
+        Command undo = () -> getShapeList().remove(shape);
+        shapeUndoStack.push(undo);
+
+    }
+
+    @FunctionalInterface
+    interface Command {
+        void execute();
+    }
+
+    public void undo() {
+        Command undoToExecute = shapeUndoStack.pop();
+        undoToExecute.execute();
+
+    }
+
+    public int getLastIndexOfShapeList() {
+        return getShapeList().size() - 1;
+
+    }
 
     public void clearShapeList() {
         getShapeList().clear();
