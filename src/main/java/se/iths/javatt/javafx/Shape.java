@@ -27,15 +27,19 @@ public abstract class Shape {
     }
 
     public abstract void draw(GraphicsContext context);
+
     public double getSize() {
         return size;
     }
+
     public Color getColor() {
         return color;
     }
+
     public double getX() {
         return x;
     }
+
     public double getY() {
         return y;
     }
@@ -70,7 +74,7 @@ public abstract class Shape {
 
     abstract String drawToSVGAsString();
 
-    public void updateColorAndSize(Color color, double size){
+    public void updateColorAndSize(Color color, double size) {
         setColor(color);
         setSize(size);
 

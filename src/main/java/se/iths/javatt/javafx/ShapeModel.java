@@ -19,7 +19,7 @@ public class ShapeModel {
 
     private ObservableList<ShapeType> shapeTypeList;
     private final ObjectProperty<ShapeType> currentShapeType;
-    private Deque<Command> shapeUndoStack;
+    private final Deque<Command> shapeUndoStack;
 
 
     public ShapeModel() {

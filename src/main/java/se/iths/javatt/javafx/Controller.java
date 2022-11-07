@@ -1,6 +1,5 @@
 package se.iths.javatt.javafx;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,8 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-
-import static javafx.collections.FXCollections.observableArrayList;
 
 
 public class Controller {
@@ -50,10 +47,14 @@ public class Controller {
         double mouseX = mouseEvent.getX();
         double mouseY = mouseEvent.getY();
         if (selectModeBox.isSelected()) {
-            shapeModel.getShapeList().stream()
-                    .filter(shape -> shape.checkInsideShape(mouseX, mouseY))
-                    .reduce((first, second) -> second)
-                    .ifPresent(shape -> shape.updateColorAndSize(shapeModel.getColor(), shapeModel.getSize()));
+            if (shapeModel.getShapeList().isEmpty())
+                return;
+            else {
+                shapeModel.getShapeList().stream()
+                        .filter(shape -> shape.checkInsideShape(mouseX, mouseY))
+                        .reduce((first, second) -> second)
+                        .ifPresent(shape -> shape.updateColorAndSize(shapeModel.getColor(), shapeModel.getSize()));
+            }
         } else {
             shapeParameter = new ShapeParameter(mouseX, mouseY, shapeModel.getSize(), shapeModel.getColor());
             shapeModel.getShapeList().add(shapeFactory.getShape(shapeModel.getShapeType(), shapeParameter));
@@ -68,8 +69,13 @@ public class Controller {
     }
 
     public void useUndoButton() {
-        shapeModel.undo();
-        drawShapes();
+        if (shapeModel.getShapeList().isEmpty()) {
+            return;
+
+        } else {
+            shapeModel.undo();
+            drawShapes();
+        }
     }
 
     private void drawShapes() {
@@ -97,10 +103,6 @@ public class Controller {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-//                double x = mouseEvent.getX() - (double) shapeModel.getSize() / 2;
-//                double y = mouseEvent.getY() - (double) shapeModel.getSize() / 2;
-//                context.setFill(colorPicker.getValue());
-//                context.fillOval(x, y, (double) shapeModel.getSize(), (double) shapeModel.getSize());
 }
 
 
