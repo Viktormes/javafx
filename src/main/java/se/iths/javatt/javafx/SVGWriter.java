@@ -17,11 +17,12 @@ public class SVGWriter {
     public void saveToFile(ShapeModel shapeModel, Stage stage) {
         fileChooser.setInitialFileName("BildensBild");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG-fil", "*.svg"));
-        filePath = fileChooser.showSaveDialog(stage.getOwner()).toPath();
+
         try {
+            filePath = fileChooser.showSaveDialog(stage.getOwner()).toPath();
             Files.write(filePath, getShapesAsString(shapeModel));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (NullPointerException | IOException e) {
+            e.getMessage();
         }
     }
 

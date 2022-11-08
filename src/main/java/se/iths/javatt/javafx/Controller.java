@@ -69,10 +69,7 @@ public class Controller {
     }
 
     public void useUndoButton() {
-        if (shapeModel.getShapeList().isEmpty()) {
-            return;
-
-        } else {
+        if (!shapeModel.getShapeList().isEmpty()) {
             shapeModel.undo();
             drawShapes();
         }
