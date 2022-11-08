@@ -1,4 +1,4 @@
-package se.iths.javatt.javafx;
+package se.iths.javatt.javafx.Shape;
 
 import javafx.scene.canvas.GraphicsContext;
 
@@ -16,7 +16,7 @@ public class Circle extends Shape {
     }
 
     @Override
-    boolean checkInsideShape(double mouseX, double mouseY) {
+    public boolean checkInsideShape(double mouseX, double mouseY) {
         double distX = mouseX - getX();
         double distY = mouseY - getY();
         double distance = Math.sqrt((distX * distX) + (distY * distY));
@@ -30,5 +30,10 @@ public class Circle extends Shape {
                 "cy=\"" + getY() + "\" " +
                 "r=\"" + radius + "\" " +
                 "fill=\"" + convertColor + "\" />";
+    }
+
+    @Override
+    public Shape copyOf() {
+        return new Circle(getCopyOfParameter());
     }
 }

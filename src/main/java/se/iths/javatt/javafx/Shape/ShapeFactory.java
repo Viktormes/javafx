@@ -1,4 +1,6 @@
-package se.iths.javatt.javafx;
+package se.iths.javatt.javafx.Shape;
+
+import se.iths.javatt.javafx.Shape.*;
 
 public class ShapeFactory {
     public Shape getShape(ShapeType shapeType, ShapeParameter parameter) {

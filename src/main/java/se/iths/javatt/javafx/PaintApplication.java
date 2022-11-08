@@ -3,10 +3,10 @@ package se.iths.javatt.javafx;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class PaintApplication extends Application {
     @Override
@@ -17,7 +17,7 @@ public class PaintApplication extends Application {
         controller.setStage(stage);
         stage.setTitle("VIKTORS FORMER");
         stage.setScene(scene);
-        stage.getIcons().add(new Image(PaintApplication.class.getResourceAsStream("GGG2.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(PaintApplication.class.getResourceAsStream("GGG2.png"))));
         stage.show();
     }
     public static void main(String[] args) {

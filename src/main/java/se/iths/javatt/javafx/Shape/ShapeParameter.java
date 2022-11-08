@@ -1,4 +1,4 @@
-package se.iths.javatt.javafx;
+package se.iths.javatt.javafx.Shape;
 
 import javafx.scene.paint.Color;
 

@@ -22,7 +22,7 @@ public class SVGWriter {
             filePath = fileChooser.showSaveDialog(stage.getOwner()).toPath();
             Files.write(filePath, getShapesAsString(shapeModel));
         } catch (NullPointerException | IOException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
     }
 

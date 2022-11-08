@@ -2,6 +2,10 @@ package se.iths.javatt.javafx;
 
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
+import se.iths.javatt.javafx.Shape.Circle;
+import se.iths.javatt.javafx.Shape.Rectangle;
+import se.iths.javatt.javafx.Shape.Shape;
+import se.iths.javatt.javafx.Shape.ShapeParameter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +13,6 @@ class ShapeModelTest {
 
 
     ShapeModel shapeModel = new ShapeModel();
-    ShapeFactory shapeFactory = new ShapeFactory();
     ShapeParameter circle = new ShapeParameter(100,150,50, Color.BLUE);
     ShapeParameter rectangle = new ShapeParameter(100,150,30,Color.AQUA);
 
@@ -18,20 +21,24 @@ class ShapeModelTest {
 
     private void prepareTheShapeList(){
 
+        shapeModel.addToUndoStack();
         shapeModel.getShapeList().add(fakeCircle);
+        shapeModel.addToUndoStack();
         shapeModel.getShapeList().add(fakeRectangle);
     }
 
     @Test
-    void seeIfGetShapeListWorksAsIntended() {
+    void addingToUndoStackAndCallingUndoOnRecentShapeInStack() {
         prepareTheShapeList();
+        shapeModel.undo();
 
-        int expected = 2;
+        int expected = 1;
         int actual = shapeModel.getShapeList().size();
+
         assertEquals(expected,actual);
     }
     @Test
-    void seeIfClearShapeListWorksAsIntended(){
+    void callingClearShapeListOnTheList(){
         prepareTheShapeList();
         shapeModel.clearShapeList();
 

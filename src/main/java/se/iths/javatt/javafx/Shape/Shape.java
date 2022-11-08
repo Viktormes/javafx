@@ -1,4 +1,4 @@
-package se.iths.javatt.javafx;
+package se.iths.javatt.javafx.Shape;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -70,13 +70,20 @@ public abstract class Shape {
         return result;
     }
 
-    abstract boolean checkInsideShape(double mouseX, double mouseY);
+    public abstract boolean checkInsideShape(double mouseX, double mouseY);
 
-    abstract String drawToSVGAsString();
+    public abstract String drawToSVGAsString();
+
+    public abstract Shape copyOf();
 
     public void updateColorAndSize(Color color, double size) {
         setColor(color);
         setSize(size);
+
+    }
+
+    public ShapeParameter getCopyOfParameter() {
+        return new ShapeParameter(getX(), getY(), getSize(), getColor());
 
     }
 }

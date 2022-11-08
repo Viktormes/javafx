@@ -1,4 +1,4 @@
-package se.iths.javatt.javafx;
+package se.iths.javatt.javafx.Shape;
 
 import javafx.scene.canvas.GraphicsContext;
 
@@ -13,7 +13,7 @@ public class Rectangle extends Shape {
         context.fillRect(getX(), getY(), getSize() * 1.75, getSize());
     }
     @Override
-    boolean checkInsideShape(double mouseX, double mouseY) {
+    public boolean checkInsideShape(double mouseX, double mouseY) {
         return mouseX >= getX() &&
                 mouseX <= getX() + getSize() * 1.75 &&
                 mouseY >= getY() &&
@@ -27,6 +27,11 @@ public class Rectangle extends Shape {
                 "width=\"" + getSize() * 1.75 + "\" " +
                 "height=\"" + getSize() + "\" " +
                 "fill=\"#" + convertColor + "\" />";
+    }
+
+    @Override
+    public Shape copyOf() {
+        return new Rectangle(getCopyOfParameter());
     }
 }
 

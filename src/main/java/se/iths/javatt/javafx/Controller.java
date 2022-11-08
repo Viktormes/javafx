@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import se.iths.javatt.javafx.Shape.ShapeFactory;
+import se.iths.javatt.javafx.Shape.ShapeParameter;
+import se.iths.javatt.javafx.Shape.ShapeType;
 
 
 public class Controller {
@@ -46,10 +49,11 @@ public class Controller {
     public void canvasClicked(MouseEvent mouseEvent) {
         double mouseX = mouseEvent.getX();
         double mouseY = mouseEvent.getY();
+        shapeModel.addToUndoStack();
         if (selectModeBox.isSelected()) {
-            if (shapeModel.getShapeList().isEmpty())
+            if (shapeModel.getShapeList().isEmpty()) {
                 return;
-            else {
+            } else {
                 shapeModel.getShapeList().stream()
                         .filter(shape -> shape.checkInsideShape(mouseX, mouseY))
                         .reduce((first, second) -> second)
@@ -60,7 +64,6 @@ public class Controller {
             shapeModel.getShapeList().add(shapeFactory.getShape(shapeModel.getShapeType(), shapeParameter));
         }
         drawShapes();
-        shapeModel.addToUndoStack(shapeModel.getShapeList().get(shapeModel.getLastIndexOfShapeList()));
 
     }
 
@@ -73,6 +76,7 @@ public class Controller {
             shapeModel.undo();
             drawShapes();
         }
+
     }
 
     private void drawShapes() {

@@ -6,4 +6,6 @@ module se.iths.javatt.javafx {
 
     opens se.iths.javatt.javafx to javafx.fxml;
     exports se.iths.javatt.javafx;
+    exports se.iths.javatt.javafx.Shape;
+    opens se.iths.javatt.javafx.Shape to javafx.fxml;
 }
